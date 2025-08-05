@@ -3,15 +3,13 @@ name: Setup CI
 runs:
   using: composite
   steps:
-    - name: Setup Node.js 20.x
+    - name: Setup Node.js 20.x with pnpm
       uses: actions/setup-node@v4
       with:
         node-version: 20.x
-        cache: pnpm
-
-    - name: Install pnpm
-      shell: bash
-      run: npm install -g pnpm
+        cache: 'pnpm'
+        cache-dependency-path: pnpm-lock.yaml
+        package-manager: 'pnpm'
 
     - name: Install dependencies
       shell: bash
