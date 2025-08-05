@@ -22,7 +22,7 @@
     "local-release": "changeset version && changeset publish",
     "prepublishOnly": "pnpm run ci"
   },
-  "keywords": [],
+  "keywords": ["zoho inventory", "zoho books", "zoho invoice", "coffeeannan"],
   "author": "Believe Mataga",
   "license": "MIT",
   "packageManager": "pnpm@10.14.0",
