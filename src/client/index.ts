@@ -1,4 +1,3 @@
-import qs from 'qs';
 import {
   ZohoEntities,
   type APIFlavour,
@@ -59,7 +58,6 @@ export class ZohoApiClient {
         organization_id: this.config.orgId,
       },
       timeout: 30_000,
-      paramsSerializer: (params) => qs.stringify(params, { encode: false }),
     });
 
     client.interceptors.request.use(async (requestConfig) => {
