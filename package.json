@@ -14,12 +14,13 @@
   },
   "scripts": {
     "format": "prettier --write .",
-    "check-format": "prettier --check .",
-    "ci": "npm run build && npm run format",
+    "types:check": "tsc",
+    "lint": "pnpm dlx oxlint@latest",
+    "ci": "pnpm run build && pnpm run format",
     "build": "tsc",
     "test": "vitest run",
     "local-release": "changeset version && changeset publish",
-    "prepublishOnly": "npm run ci"
+    "prepublishOnly": "pnpm run ci"
   },
   "keywords": [],
   "author": "Believe Mataga",

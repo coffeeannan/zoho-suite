@@ -1,48 +1,36 @@
-name: CI & Release
+name: Release
 
 on:
   push:
-    tags:
-      - 'v*'
+    branches:
+      - main
+      - next
+
+concurrency: ${{ github.workflow }}-${{ github.ref }}
 
 jobs:
   release:
+    name: Release
+    # Optional: restrict to your repo (change or remove if needed)
+    if: github.repository == 'coffeeannan/zoho-suite'
     runs-on: ubuntu-latest
-
+    timeout-minutes: 20
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
+      id-token: write
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
+      - uses: ./.github/actions/ci-setup
+
+      - name: Create Release Pull Request or Publish to npm
+        uses: changesets/action@v1
         with:
-          node-version: '20'
-          registry-url: 'https://registry.npmjs.org'
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Run tests
-        run: npm run test
-        env:
-          ZOHO_CLIENT_ID: ${{ secrets.ZOHO_CLIENT_ID }}
-          ZOHO_CLIENT_SECRET: ${{ secrets.ZOHO_CLIENT_SECRET }}
-          ZOHO_REFRESH_TOKEN: ${{ secrets.ZOHO_REFRESH_TOKEN }}
-          ZOHO_ORGANIZATION_ID: ${{ secrets.ZOHO_ORGANIZATION_ID }}
-
-      - name: Build & format
-        run: npm run prepublishOnly
-
-      - name: Publish to npm
-        run: npx changeset publish
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-
-      - name: Create GitHub Release
-        uses: softprops/action-gh-release@v1
-        with:
-          tag_name: ${{ github.ref_name }}
-          name: Release ${{ github.ref_name }}
-          body_path: .changeset/CHANGELOG.md
+          version: pnpm exec changeset version
+          publish: pnpm exec changeset publish
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_CONFIG_PROVENANCE: true
