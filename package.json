@@ -1,6 +1,6 @@
 {
   "name": "@smoasters/zoho-suite",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "Zoho Finance Suite API bindings for Node.",
   "type": "module",
   "main": "dist/index.js",
@@ -22,7 +22,12 @@
     "local-release": "changeset version && changeset publish",
     "prepublishOnly": "pnpm run ci"
   },
-  "keywords": ["zoho inventory", "zoho books", "zoho invoice", "coffeeannan"],
+  "keywords": [
+    "zoho inventory",
+    "zoho books",
+    "zoho invoice",
+    "coffeeannan"
+  ],
   "author": "Believe Mataga",
   "license": "MIT",
   "packageManager": "pnpm@10.14.0",
@@ -37,7 +42,7 @@
     "typescript": "5.8.3",
     "vitest": "^3.2.4"
   },
-   "trustedDependencies": [
+  "trustedDependencies": [
     "esbuild"
   ],
   "publishConfig": {
