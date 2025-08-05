@@ -1,6 +1,6 @@
 {
   "name": "@smoasters/zoho-suite",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Zoho Finance Suite API bindings for Node.",
   "type": "module",
   "main": "dist/index.js",
