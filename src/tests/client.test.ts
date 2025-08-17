@@ -1,11 +1,10 @@
-import { test, expect } from 'vitest';
+import { test, expect } from 'bun:test';
 import { ZohoApiClient, ZohoApiError } from '../client';
-import 'dotenv/config';
 
-const orgId = process.env.ZOHO_ORGANIZATION_ID!;
-const clientId = process.env.ZOHO_CLIENT_ID as string;
-const clientSecret = process.env.ZOHO_CLIENT_SECRET as string;
-const refreshToken = process.env.ZOHO_REFRESH_TOKEN as string;
+const orgId = Bun.env.ZOHO_ORGANIZATION_ID!;
+const clientId = Bun.env.ZOHO_CLIENT_ID as string;
+const clientSecret = Bun.env.ZOHO_CLIENT_SECRET as string;
+const refreshToken = Bun.env.ZOHO_REFRESH_TOKEN as string;
 
 test('instantiates ZohoApiClient and retrieves sales orders successfully', async () => {
   const client = new ZohoApiClient({

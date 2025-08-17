@@ -1,14 +1,17 @@
 name: CI
-
-on:
-  pull_request:
-  push:
-    branches: [main]
-
-permissions:
-  contents: read
+on: [push, pull_request]
 
 jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/ci-setup
+      - name: Build package
+        run: bun run build
+      - name: Check build output
+        run: ls -la dist/
+
   test:
     name: Test
     runs-on: ubuntu-latest
@@ -16,56 +19,32 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/ci-setup
-
-      - name: Check Git version
-        run: git --version
-
-      - name: Vitest tests
-        run: pnpm test
+      - name: Lint
+        run: bun lint
+      - name: Type check
+        run: bun types:check
+      - name: Bun tests
+        run: bun test
         env:
           ZOHO_CLIENT_ID: ${{ secrets.ZOHO_CLIENT_ID }}
           ZOHO_CLIENT_SECRET: ${{ secrets.ZOHO_CLIENT_SECRET }}
           ZOHO_REFRESH_TOKEN: ${{ secrets.ZOHO_REFRESH_TOKEN }}
           ZOHO_ORGANIZATION_ID: ${{ secrets.ZOHO_ORGANIZATION_ID }}
 
-  typecheck:
-    name: Typecheck
+  package-test:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    needs: build
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/ci-setup
-
-      - name: Typecheck
-        run: pnpm types:check
-
-  lint:
-    name: Lint
-    runs-on: ubuntu-latest
-    timeout-minutes: 20
-    steps:
-      - uses: actions/checkout@v4
-      - uses: ./.github/actions/ci-setup
-
-      - name: Lint
-        run: pnpm lint
-
-      - name: Format
-        run: pnpm format
-
-  ci-ok:
-    name: CI OK
-    runs-on: ubuntu-latest
-    if: always()
-    needs: [test, typecheck, lint]
-    env:
-      FAILURE: ${{ contains(join(needs.*.result, ','), 'failure') }}
-    steps:
-      - name: Check for failure
+      - name: Build
+        run: bun run build
+      - name: Pack and test package
         run: |
-          echo $FAILURE
-          if [ "$FAILURE" = "false" ]; then
-            exit 0
-          else
-            exit 1
-          fi
+          npm pack
+          mkdir test-install
+          cd test-install
+          bun init -y
+          bun add ../smoasters-zoho-suite-*.tgz
+          echo "import { ZohoSuite } from '@smoasters/zoho-suite'; console.log('Import works!');" > test.js
+          bun run test.js

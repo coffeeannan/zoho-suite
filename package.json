@@ -1,50 +1,64 @@
 {
   "name": "@smoasters/zoho-suite",
   "version": "1.2.2",
-  "description": "Zoho Finance Suite API bindings for Node.",
-  "type": "module",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "description": "ZohoSuite is a supercharged community-maintained Node API SDK that allows you to interact with Zoho Finance Suite APIs.",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./resources": {
+      "types": "./dist/resources/index.d.ts",
+      "import": "./dist/resources/index.js"
+    },
+    "./resources/*": {
+      "types": "./dist/resources/*.d.ts",
+      "import": "./dist/resources/*.js"
+    }
+  },
   "files": [
     "dist"
   ],
+  "scripts": {
+    "format": "prettier --write .",
+    "types:check": "tsc --noEmit",
+    "lint": "bunx oxlint@latest",
+    "build": "bun run build.ts",
+    "test": "bun test",
+    "changeset": "changeset",
+    "changeset:version": "changeset version",
+    "changeset:publish": "changeset publish"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/coffeeannan/zoho-suite.git"
   },
-  "scripts": {
-    "format": "prettier --write .",
-    "types:check": "tsc",
-    "lint": "pnpm dlx oxlint@latest",
-    "ci": "pnpm run build && pnpm run format",
-    "build": "tsc",
-    "test": "vitest run",
-    "local-release": "changeset version && changeset publish",
-    "prepublishOnly": "pnpm run ci"
+  "bugs": {
+    "url": "https://github.com/coffeeannan/zoho-suite.git/issues"
   },
   "keywords": [
+    "coffeeannan",
+    "zoho suite",
     "zoho inventory",
     "zoho books",
-    "zoho invoice",
-    "coffeeannan"
+    "zoho invoice"
   ],
   "author": "Believe Mataga",
   "license": "MIT",
-  "packageManager": "pnpm@10.14.0",
+  "engines": {
+    "bun": ">=1.2.19"
+  },
   "dependencies": {
     "xior": "^0.7.8"
   },
   "devDependencies": {
     "@changesets/cli": "^2.29.5",
+    "@types/bun": "^1.2.20",
     "@types/node": "^24.2.0",
-    "dotenv": "^17.2.1",
     "prettier": "^3.6.2",
-    "typescript": "5.8.3",
-    "vitest": "^3.2.4"
+    "typescript": "5.8.3"
   },
-  "trustedDependencies": [
-    "esbuild"
-  ],
   "publishConfig": {
     "access": "public"
   }

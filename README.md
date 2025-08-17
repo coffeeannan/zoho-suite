@@ -1,11 +1,11 @@
 # @smoasters/zoho-suite
 
-Zoho Finance Suite API bindings for Node.
+ZohoSuite is a supercharged community-maintained Node API SDK that allows you to interact with Zoho Finance Suite APIs (Zoho Books, Zoho Inventory, Zoho Invoice).
 
 ## Installation:
 
 ```shell
-$ npm install --save @smoasters/zoho-suite
+$ bun add -D @smoasters/zoho-suite
 ```
 
 ## API
@@ -18,7 +18,7 @@ Creates a new `ZohoSuite` instance.
 
 #### Example
 
-```js
+```ts
 import { ZohoSuite } from '@smoasters/zoho-suite';
 
 const zoho = new ZohoSuite({
