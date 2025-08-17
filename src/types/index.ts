@@ -12,13 +12,30 @@ export type {
 } from './contact-person';
 export type { Document } from './document';
 export type { LineItem } from './line-item';
-export type { Package } from './package';
+export type {
+  Package,
+  ListPackage,
+  CreatePackage,
+  CreateShipment,
+  PackageLineItem,
+  ShipmentOrder,
+  CreatePackageLineItems,
+  PackageShortList,
+  QuickCreateInput,
+  QuickCreateInputItem,
+} from './package';
 export type { Invoice } from './invoice';
 export type { Tax } from './tax';
 export type {
   SalesOrder,
   CreateSalesOrder,
   UpdateSalesOrder,
+  ListSalesOrder,
+  PaymentOverview,
+  SalesOrderInvoicedStatus,
+  SalesOrderPaidStatus,
+  SalesOrderShippedStatus,
+  SalesOrderStatus,
 } from './salesorder';
 export type { CustomField } from './custom-field';
 export type {
@@ -27,9 +44,25 @@ export type {
   UpdateContact,
   GetContact,
 } from './contact';
-export type { Item, FullCompositeItem } from './item';
-export type { Payment, CreatePayment } from './payment';
-export type { ListBankaccount } from './bankaccount';
+export type {
+  Item,
+  FullCompositeItem,
+  ListItem,
+  CreateItem,
+  CreateItemGroup,
+  GetItem,
+  ItemGroup,
+  PackageDetails,
+  WarehouseStock,
+  MappedProduct,
+} from './item';
+export type {
+  Payment,
+  CreatePayment,
+  ListPayment,
+  PaymentInvoice,
+} from './payment';
+export type { ListBankaccount, Bankaccount } from './bankaccount';
 
 export type DataCenter =
   | '.com'
