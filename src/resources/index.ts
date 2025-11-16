@@ -13,7 +13,7 @@ import { TaxResource } from './tax';
 import { WarehouseResource } from './warehouse';
 
 export class ZohoSuite {
-  private readonly client: ZohoApiClient;
+  public readonly client: ZohoApiClient;
   public readonly bankaccount: BankAccountResource;
   public readonly item: ItemResource;
   public readonly contactperson: ContactPersonResource;
