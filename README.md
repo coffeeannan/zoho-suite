@@ -1,5 +1,10 @@
 # @smoasters/zoho-suite
 
+> **Warning**  
+> This repository is no longer maintained.  
+> The package has been deprecated in favour of **zapi-inventory**.  
+> Please use the new repo at [zapi-inventory](https://github.com/matagaralph/zapi-inventory.git).
+> 
 ZohoSuite is a supercharged community-maintained Node API SDK that allows you to interact with Zoho Finance Suite APIs (Zoho Books, Zoho Inventory, Zoho Invoice).
 
 ## Installation:
